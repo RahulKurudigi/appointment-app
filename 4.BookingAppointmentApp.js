@@ -32,10 +32,20 @@ const displayUsers = async () => {
   data1 = data1.data;
   data1.forEach((r) => {
     let list = document.createElement("li");
-    list.innerHTML = `${r.Name} , ${r.Password} <button class='delete-btn' onClick='deleteUser(${r.Name})' >X</button>`;
+    list.innerHTML = `${r.Name} , ${r.Password} <button class='delete-btn' onClick='deleteUser(${r._id})' >X</button>`;
     usersList.appendChild(list);
   });
 
 };
 
 displayUsers();
+
+function deleteUser(id) {
+  axios({
+    method: "delete",
+    url: `https://crudcrud.com/api/e7bd2dc56e0b4f1f83eade001ff159c7/appointmentApp/${id}`,
+  })
+    .then(displayUsers)
+    .catch((err) => console.log(err));
+}
+
